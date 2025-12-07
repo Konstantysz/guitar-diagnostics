@@ -18,10 +18,10 @@ add_executable(GuitarDiagnosticsTests
     # Analysis/TestFretbuzzDetector.cpp
     # Analysis/TestIntonationAnalyzer.cpp
     # Analysis/TestStringhealthAnalyzer.cpp
-    # Analysis/TestAnalysisEngine.cpp
+    Analysis/TestAnalysisEngine.cpp
 
     # Audio tests
-    # Audio/TestAudioDeviceManager.cpp
+    Audio/TestAudioDeviceManager.cpp
 
     # UI tests
     # UI/TestTabController.cpp

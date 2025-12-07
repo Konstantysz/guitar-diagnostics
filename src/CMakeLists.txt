@@ -1,17 +1,17 @@
-add_library(GuitarDiagnosticsCore
+add_library(GuitarDiagnosticsCore STATIC
     # Analysis
     Analysis/AnalysisResult.cpp
 
     # Application layer
     # App/Application.cpp
-    # App/AudioProcessingLayer.cpp
+    App/AudioProcessingLayer.cpp
     # App/DiagnosticVisualizationLayer.cpp
 
     # Audio management
-    # Audio/AudioDeviceManager.cpp
+    Audio/AudioDeviceManager.cpp
 
     # Analysis engine
-    # Analysis/AnalysisEngine.cpp
+    Analysis/AnalysisEngine.cpp
 
     # Analyzers
     # Analysis/Fretbuzz/FretBuzzDetector.cpp
