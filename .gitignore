@@ -39,3 +39,8 @@
 
 # debug information files
 *.dwo
+
+# Agents
+.mcp.json
+.claude
+.serena
