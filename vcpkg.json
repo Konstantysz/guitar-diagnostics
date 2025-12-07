@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "guitar-diagnostics",
+  "version": "0.0.1",
+  "description": "Professional C++20 real-time guitar diagnostics application",
+  "homepage": "https://github.com/Konstantysz/guitar-diagnostics",
+  "license": "MIT",
+  "dependencies": [
+    "glad",
+    "glfw3",
+    "glm",
+    "nlohmann-json",
+    "spdlog",
+    "gtest"
+  ],
+  "builtin-baseline": "a62ce77d56ee07513b4b67de1ec2daeaebfae51a"
+}

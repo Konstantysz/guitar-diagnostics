@@ -1,0 +1,9 @@
+[submodule "external/kappa-core"]
+	path = external/kappa-core
+	url = https://github.com/Konstantysz/kappa-core.git
+[submodule "external/lib-guitar-io"]
+	path = external/lib-guitar-io
+	url = https://github.com/Konstantysz/lib-guitar-io.git
+[submodule "external/lib-guitar-dsp"]
+	path = external/lib-guitar-dsp
+	url = https://github.com/Konstantysz/lib-guitar-dsp.git
