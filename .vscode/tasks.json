@@ -1,0 +1,174 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "CMake: Configure (Release)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "windows-release"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Configure CMake with Release preset"
+    },
+    {
+      "label": "CMake: Configure (Debug)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--preset",
+        "windows-debug"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "detail": "Configure CMake with Debug preset"
+    },
+    {
+      "label": "CMake: Build (Release)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "windows-release"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [
+        "$msCompile",
+        "$gcc"
+      ],
+      "detail": "Build with Release configuration"
+    },
+    {
+      "label": "CMake: Build (Debug)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "windows-debug"
+      ],
+      "group": "build",
+      "problemMatcher": [
+        "$msCompile",
+        "$gcc"
+      ],
+      "detail": "Build with Debug configuration"
+    },
+    {
+      "label": "CMake: Clean Build (Release)",
+      "type": "shell",
+      "command": "cmake",
+      "args": [
+        "--build",
+        "--preset",
+        "windows-release",
+        "--clean-first"
+      ],
+      "group": "build",
+      "problemMatcher": [
+        "$msCompile",
+        "$gcc"
+      ],
+      "detail": "Clean and build with Release configuration"
+    },
+    {
+      "label": "CTest: Run All Tests (Release)",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-release"
+      ],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Run all tests with Release configuration"
+    },
+    {
+      "label": "CTest: Run All Tests (Debug)",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-debug"
+      ],
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run all tests with Debug configuration"
+    },
+    {
+      "label": "CTest: Run IntonationAnalyzer Tests",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-release",
+        "-R",
+        "IntonationAnalyzer"
+      ],
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run only IntonationAnalyzer tests"
+    },
+    {
+      "label": "CTest: Run FretBuzzDetector Tests",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-release",
+        "-R",
+        "FretBuzzDetector"
+      ],
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run only FretBuzzDetector tests"
+    },
+    {
+      "label": "CTest: Run StringHealthAnalyzer Tests",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-release",
+        "-R",
+        "StringHealth"
+      ],
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run only StringHealthAnalyzer tests"
+    },
+    {
+      "label": "CTest: Run Integration Tests",
+      "type": "shell",
+      "command": "ctest",
+      "args": [
+        "--preset",
+        "windows-release",
+        "-R",
+        "Integration"
+      ],
+      "group": "test",
+      "problemMatcher": [],
+      "detail": "Run only integration tests"
+    },
+    {
+      "label": "Build and Test (Release)",
+      "dependsOn": [
+        "CMake: Build (Release)",
+        "CTest: Run All Tests (Release)"
+      ],
+      "dependsOrder": "sequence",
+      "problemMatcher": [],
+      "detail": "Build and run all tests (Release)"
+    }
+  ]
+}
