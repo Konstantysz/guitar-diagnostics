@@ -15,9 +15,9 @@ endif()
 
 add_executable(GuitarDiagnosticsTests
     # Analysis tests
-    # Analysis/TestFretbuzzDetector.cpp
-    # Analysis/TestIntonationAnalyzer.cpp
-    # Analysis/TestStringhealthAnalyzer.cpp
+    Analysis/TestFretBuzzDetector.cpp
+    Analysis/TestIntonationAnalyzer.cpp
+    Analysis/TestStringHealthAnalyzer.cpp
     Analysis/TestAnalysisEngine.cpp
 
     # Audio tests
@@ -27,7 +27,7 @@ add_executable(GuitarDiagnosticsTests
     # UI/TestTabController.cpp
 
     # Integration tests
-    # Integration/TestAnalysisPipeline.cpp
+    Integration/TestAnalysisPipeline.cpp
 
     # Utility tests
     Util/TestLockFreeRingBuffer.cpp

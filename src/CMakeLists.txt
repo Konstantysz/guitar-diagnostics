@@ -14,9 +14,9 @@ add_library(GuitarDiagnosticsCore STATIC
     Analysis/AnalysisEngine.cpp
 
     # Analyzers
-    # Analysis/Fretbuzz/FretBuzzDetector.cpp
-    # Analysis/Intonation/IntonationAnalyzer.cpp
-    # Analysis/StringHealth/StringHealthAnalyzer.cpp
+    Analysis/Fretbuzz/FretBuzzDetector.cpp
+    Analysis/Intonation/IntonationAnalyzer.cpp
+    Analysis/StringHealth/StringHealthAnalyzer.cpp
 
     # UI
     # UI/TabController.cpp
@@ -47,6 +47,7 @@ target_link_libraries(GuitarDiagnosticsCore
         Kappa
         guitar-io
         guitar-dsp
+
 )
 
 # C++20 features
