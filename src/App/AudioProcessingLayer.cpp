@@ -34,7 +34,7 @@ namespace GuitarDiagnostics::App
         config.outputChannels = 0;
 
         GuitarIO::AudioCallback callback =
-            [this](std::span<const float> inputBuffer, std::span<float> outputBuffer, void *userData) -> int {
+            [](std::span<const float> inputBuffer, std::span<float> outputBuffer, void *userData) -> int {
             return AudioProcessingLayer::AudioCallback(inputBuffer, outputBuffer, userData);
         };
 
@@ -58,7 +58,7 @@ namespace GuitarDiagnostics::App
         config.outputChannels = 0;
 
         GuitarIO::AudioCallback callback =
-            [this](std::span<const float> inputBuffer, std::span<float> outputBuffer, void *userData) -> int {
+            [](std::span<const float> inputBuffer, std::span<float> outputBuffer, void *userData) -> int {
             return AudioProcessingLayer::AudioCallback(inputBuffer, outputBuffer, userData);
         };
 
