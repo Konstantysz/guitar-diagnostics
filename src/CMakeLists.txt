@@ -3,9 +3,9 @@ add_library(GuitarDiagnosticsCore STATIC
     Analysis/AnalysisResult.cpp
 
     # Application layer
-    # App/Application.cpp
+    App/Application.cpp
     App/AudioProcessingLayer.cpp
-    # App/DiagnosticVisualizationLayer.cpp
+    App/DiagnosticVisualizationLayer.cpp
 
     # Audio management
     Audio/AudioDeviceManager.cpp
@@ -19,11 +19,11 @@ add_library(GuitarDiagnosticsCore STATIC
     Analysis/StringHealth/StringHealthAnalyzer.cpp
 
     # UI
-    # UI/TabController.cpp
-    # UI/Panels/FretBuzzPanel.cpp
-    # UI/Panels/IntonationPanel.cpp
-    # UI/Panels/StringHealthPanel.cpp
-    # UI/Panels/AudioMonitorPanel.cpp
+    UI/TabController.cpp
+    UI/Panels/FretBuzzPanel.cpp
+    UI/Panels/IntonationPanel.cpp
+    UI/Panels/StringHealthPanel.cpp
+    UI/Panels/AudioMonitorPanel.cpp
 
     # Utilities
     # Util/SignalGenerator.cpp
@@ -41,13 +41,16 @@ target_include_directories(GuitarDiagnosticsCore
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+# Find ImGui
+find_package(imgui CONFIG REQUIRED)
+
 # Link dependencies
 target_link_libraries(GuitarDiagnosticsCore
     PUBLIC
         Kappa
         guitar-io
         guitar-dsp
-
+        imgui::imgui
 )
 
 # C++20 features
