@@ -1,3 +1,8 @@
+/**
+ * @file GuitarDiagnostics.cpp
+ * @brief Main entry point for the Guitar Diagnostic Analyzer application.
+ */
+
 #include "App/Application.h"
 
 #include <Logger.h>
@@ -5,6 +10,12 @@
 #include <exception>
 #include <memory>
 
+/**
+ * @brief Application entry point.
+ * @param argc Argument count.
+ * @param argv Argument values.
+ * @return Exit code.
+ */
 int main([[maybe_unused]] int argc, [[maybe_unused]] char **argv)
 {
     Kappa::Logger::SetLoggerName("GuitarDiagnostics");
