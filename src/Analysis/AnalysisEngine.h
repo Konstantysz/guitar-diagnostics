@@ -29,6 +29,19 @@ namespace GuitarDiagnostics::Analysis
         void RegisterAnalyzer(std::shared_ptr<Analyzer> analyzer);
         void Reset();
 
+        template<typename T> std::shared_ptr<T> GetAnalyzer() const
+        {
+            for (const auto &analyzer : analyzers)
+            {
+                auto typedAnalyzer = std::dynamic_pointer_cast<T>(analyzer);
+                if (typedAnalyzer)
+                {
+                    return typedAnalyzer;
+                }
+            }
+            return nullptr;
+        }
+
     private:
         void WorkerThreadFunction();
 
