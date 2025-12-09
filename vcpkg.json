@@ -9,6 +9,10 @@
     "glad",
     "glfw3",
     "glm",
+    {
+      "name": "imgui",
+      "features": ["glfw-binding", "opengl3-binding"]
+    },
     "nlohmann-json",
     "spdlog",
     "gtest"
