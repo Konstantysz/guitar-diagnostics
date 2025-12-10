@@ -58,7 +58,6 @@ jobs:
       - name: Install macOS dependencies
         if: runner.os == 'macOS'
         run: |
-          brew update
           brew install cmake ninja pkg-config
 
       - name: Configure CMake
