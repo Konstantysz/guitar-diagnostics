@@ -1,0 +1,93 @@
+name: Deploy
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    name: Deploy ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - name: "Windows"
+            os: windows-latest
+            triplet: x64-windows
+            artifact_pattern: "GuitarDiagnostics-*.zip"
+            cpack_generator: "ZIP"
+
+          - name: "Ubuntu"
+            os: ubuntu-latest
+            triplet: x64-linux
+            artifact_pattern: "GuitarDiagnostics-*.tar.gz"
+            cpack_generator: "TGZ"
+
+          - name: "macOS"
+            os: macos-latest
+            triplet: arm64-osx
+            artifact_pattern: "GuitarDiagnostics-*-Darwin.dmg"
+            cpack_generator: "DragNDrop"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup vcpkg
+        uses: lukka/run-vcpkg@v11
+        with:
+          vcpkgGitCommitId: 'a62ce77d56ee07513b4b67de1ec2daeaebfae51a'
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libxrandr-dev \
+            libxinerama-dev \
+            libxcursor-dev \
+            libxi-dev \
+            libasound2-dev \
+            libgl1-mesa-dev \
+            build-essential \
+            cmake \
+            ninja-build
+
+      - name: Install macOS dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew update
+          brew install cmake ninja pkg-config
+
+      - name: Configure CMake
+        run: |
+          cmake -B build -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET=${{ matrix.config.triplet }} -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release
+
+      - name: Package
+        shell: bash
+        run: |
+          cd build
+          cpack -G ${{ matrix.config.cpack_generator }} -C Release
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.config.name }}-Artifacts
+          path: build/${{ matrix.config.artifact_pattern }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: build/${{ matrix.config.artifact_pattern }}
