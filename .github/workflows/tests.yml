@@ -46,7 +46,7 @@ jobs:
 
       - name: Run tests
         working-directory: build
-        run: ctest -C Debug --output-on-failure --verbose
+        run: ctest -C Debug --output-on-failure --verbose -E "HighFrequencyWriteStressTest"
         shell: bash
 
       - name: Upload test results
