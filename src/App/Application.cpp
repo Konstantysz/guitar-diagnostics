@@ -91,8 +91,8 @@ namespace GuitarDiagnostics::App
 
         ImGui::StyleColorsDark();
 
-        GLFWwindow *window = GetWindow().GetHandle();
-        ImGui_ImplGlfw_InitForOpenGL(window, true);
+        GLFWwindow *glfwWindow = GetWindow().GetHandle();
+        ImGui_ImplGlfw_InitForOpenGL(glfwWindow, true);
         ImGui_ImplOpenGL3_Init("#version 330");
 
         LOG_INFO("ImGui initialized successfully");
