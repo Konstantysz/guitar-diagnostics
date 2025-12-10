@@ -44,7 +44,7 @@ namespace GuitarDiagnostics::UI
         if (!result || !result->isValid)
         {
             ImGui::Text("Waiting for analysis data...");
-            ImGui::Text("");
+            ImGui::Spacing();
             ImGui::TextWrapped("Play a sustained note on your guitar to analyze string health.");
             return;
         }
