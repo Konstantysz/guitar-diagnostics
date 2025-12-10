@@ -43,7 +43,20 @@ build
 # debug information files
 *.dwo
 
-# Agents
+# MCP and Agent Configuration
 .mcp.json
-.claude
 .serena
+
+# Claude Code - Personal settings and cache only
+.claude/settings.local.json
+.claude/.cache/
+.claude/.history/
+.claude/hooks/
+
+# Keep project-level Claude configuration tracked
+!.claude/docs/
+!.claude/commands/
+!.claude/skills/
+!.claude/agents/
+!.claude/templates/
+!.claude/QUICK-REFERENCE.md
