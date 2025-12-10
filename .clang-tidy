@@ -1,5 +1,5 @@
 ---
-# clang-tidy configuration for Precision Guitar Tuner (C++20)
+# clang-tidy configuration for Guitar Diagnostics (C++20)
 #
 # C++20 Feature Coverage:
 # - Concepts: Enabled via modernize-* checks
