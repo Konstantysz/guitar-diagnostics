@@ -47,7 +47,7 @@ namespace GuitarDiagnostics::UI
         if (!result || !result->isValid)
         {
             ImGui::Text("Waiting for analysis data...");
-            ImGui::Text("");
+            ImGui::Spacing();
             ImGui::TextWrapped("Instructions:");
             ImGui::BulletText("1. Play an open string");
             ImGui::BulletText("2. Wait for stable pitch detection");

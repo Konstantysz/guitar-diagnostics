@@ -83,6 +83,15 @@ install(TARGETS GuitarDiagnostics
     ARCHIVE DESTINATION lib
 )
 
+# CPack configuration for deployment
+include(InstallRequiredSystemLibraries)
+set(CPACK_PACKAGE_NAME "GuitarDiagnostics")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
+set(CPACK_PACKAGE_VENDOR "Konstantysz")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Professional C++20 real-time guitar diagnostics application")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+include(CPack)
+
 # Print configuration summary
 message(STATUS "")
 message(STATUS "Guitar Diagnostic Analyzer Configuration:")
