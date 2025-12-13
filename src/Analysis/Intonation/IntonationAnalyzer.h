@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Analysis/Analyzer.h"
+#include "Analysis/StringDetector.h"
 
 #include <YinPitchDetector.h>
 
@@ -36,6 +37,7 @@ namespace GuitarDiagnostics::Analysis
         float expectedFrettedFrequency; ///< Expected frequency for the fretted string.
         float centDeviation;            ///< Deviation in cents.
         bool isInTune;                  ///< True if intonation is within tolerance.
+        StringInfo stringInfo;          ///< Detected string information.
 
         /**
          * @brief Constructs an IntonationResult with default values.

@@ -2,13 +2,14 @@
 
 #include <AudioDevice.h>
 
+#include <cmath>
 #include <span>
 
 namespace GuitarDiagnostics::App
 {
 
     AudioProcessingLayer::AudioProcessingLayer(Util::LockFreeRingBuffer<float> *ringBuffer)
-        : ringBuffer(ringBuffer), audioDevice(nullptr), bufferSize(0)
+        : ringBuffer(ringBuffer), audioDevice(nullptr), bufferSize(0), peakInputLevel(0.0f)
     {
     }
 
@@ -105,6 +106,11 @@ namespace GuitarDiagnostics::App
         return audioDevice && audioDevice->IsRunning();
     }
 
+    float AudioProcessingLayer::GetPeakInputLevel() const
+    {
+        return peakInputLevel.load(std::memory_order_relaxed);
+    }
+
     int AudioProcessingLayer::AudioCallback(std::span<const float> inputBuffer,
         [[maybe_unused]] std::span<float> outputBuffer,
         void *userData)
@@ -122,6 +128,17 @@ namespace GuitarDiagnostics::App
         if (!inputBuffer.empty() && ringBuffer)
         {
             ringBuffer->Write(inputBuffer);
+
+            // Calculate RMS for peak level metering (real-time safe)
+            float sumSquares = 0.0f;
+            for (const float sample : inputBuffer)
+            {
+                sumSquares += sample * sample;
+            }
+            float rms = std::sqrt(sumSquares / static_cast<float>(inputBuffer.size()));
+
+            // Store peak level atomically for UI thread to read
+            peakInputLevel.store(rms, std::memory_order_relaxed);
         }
     }
 

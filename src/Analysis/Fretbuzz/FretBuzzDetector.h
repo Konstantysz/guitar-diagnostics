@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Analysis/Analyzer.h"
+#include "Analysis/StringDetector.h"
 
 #include <FFTProcessor.h>
 #include <YinPitchDetector.h>
@@ -22,6 +23,7 @@ namespace GuitarDiagnostics::Analysis
         float transientScore;      ///< Transient analysis score.
         float highFreqEnergyScore; ///< High frequency energy metric.
         float inharmonicityScore;  ///< Inharmonicity metric.
+        StringInfo stringInfo;     ///< Detected string information.
 
         /**
          * @brief Constructs a FretBuzzResult with default values.

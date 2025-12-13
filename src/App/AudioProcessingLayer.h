@@ -5,6 +5,7 @@
 
 #include <RtAudioDevice.h>
 
+#include <atomic>
 #include <cstdint>
 #include <memory>
 
@@ -83,6 +84,14 @@ namespace GuitarDiagnostics::App
          */
         bool IsRunning() const;
 
+        /**
+         * @brief Gets the current peak input level.
+         * @return Peak input level (0.0 to 1.0).
+         *
+         * Thread-safe: Can be called from UI thread while audio thread is running.
+         */
+        float GetPeakInputLevel() const;
+
     private:
         /**
          * @brief Static audio callback function used by the audio device.
@@ -102,6 +111,7 @@ namespace GuitarDiagnostics::App
         Util::LockFreeRingBuffer<float> *ringBuffer; ///< Pointer to the ring buffer for thread-safe data transfer.
         std::unique_ptr<GuitarIO::RtAudioDevice> audioDevice; ///< Audio device instance.
         uint32_t bufferSize;                                  ///< Current buffer size in frames.
+        std::atomic<float> peakInputLevel; ///< Peak input level for UI metering (real-time thread writes, UI reads).
     };
 
 } // namespace GuitarDiagnostics::App

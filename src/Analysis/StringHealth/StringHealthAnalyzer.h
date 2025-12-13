@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Analysis/Analyzer.h"
+#include "Analysis/StringDetector.h"
 
 #include <FFTProcessor.h>
 #include <YinPitchDetector.h>
@@ -23,6 +24,7 @@ namespace GuitarDiagnostics::Analysis
         float spectralCentroid;     ///< Spectral centroid position.
         float inharmonicity;        ///< Inharmonicity measure.
         float fundamentalFrequency; ///< Fundamental frequency of the string.
+        StringInfo stringInfo;      ///< Detected string information.
 
         /**
          * @brief Constructs a StringHealthResult with default values.
