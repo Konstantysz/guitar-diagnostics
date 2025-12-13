@@ -1,23 +1,14 @@
 #pragma once
 
+#include "App/AudioProcessingLayer.h"
+#include "UI/AudioStatusBar.h"
+#include "UI/TabController.h"
+#include "Util/LockFreeRingBuffer.h"
+#include "Analysis/AnalysisEngine.h"
+
 #include <Layer.h>
 
 #include <memory>
-
-namespace GuitarDiagnostics::Analysis
-{
-    class AnalysisEngine;
-}
-
-namespace GuitarDiagnostics::Util
-{
-    template<typename T> class LockFreeRingBuffer;
-}
-
-namespace GuitarDiagnostics::UI
-{
-    class TabController;
-}
 
 namespace GuitarDiagnostics::App
 {
@@ -35,8 +26,11 @@ namespace GuitarDiagnostics::App
          * @brief Constructs the DiagnosticVisualizationLayer.
          * @param engine Pointer to the analysis engine providing data.
          * @param ringBuffer Pointer to the ring buffer for audio monitoring visualization.
+         * @param audioLayer Pointer to the audio processing layer for status bar.
          */
-        DiagnosticVisualizationLayer(Analysis::AnalysisEngine *engine, Util::LockFreeRingBuffer<float> *ringBuffer);
+        DiagnosticVisualizationLayer(Analysis::AnalysisEngine *engine,
+            Util::LockFreeRingBuffer<float> *ringBuffer,
+            AudioProcessingLayer *audioLayer);
 
         /**
          * @brief Destructor.
@@ -69,8 +63,9 @@ namespace GuitarDiagnostics::App
         void OnEvent(Kappa::Event &event) override;
 
     private:
-        Analysis::AnalysisEngine *analysisEngine;         ///< Pointer to the analysis engine.
-        std::unique_ptr<UI::TabController> tabController; ///< Controller for managing UI tabs.
+        Analysis::AnalysisEngine *analysisEngine;           ///< Pointer to the analysis engine.
+        std::unique_ptr<UI::TabController> tabController;   ///< Controller for managing UI tabs.
+        std::unique_ptr<UI::AudioStatusBar> audioStatusBar; ///< Status bar showing audio device and help toggle.
     };
 
 } // namespace GuitarDiagnostics::App

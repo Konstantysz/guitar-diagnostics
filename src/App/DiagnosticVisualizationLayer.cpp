@@ -1,5 +1,7 @@
 #include "App/DiagnosticVisualizationLayer.h"
 
+#include "App/AudioProcessingLayer.h"
+#include "UI/AudioStatusBar.h"
 #include "UI/Panels/AudioMonitorPanel.h"
 #include "UI/Panels/FretBuzzPanel.h"
 #include "UI/Panels/IntonationPanel.h"
@@ -14,10 +16,13 @@ namespace GuitarDiagnostics::App
 {
 
     DiagnosticVisualizationLayer::DiagnosticVisualizationLayer(Analysis::AnalysisEngine *engine,
-        Util::LockFreeRingBuffer<float> *ringBuffer)
-        : analysisEngine(engine), tabController(nullptr)
+        Util::LockFreeRingBuffer<float> *ringBuffer,
+        AudioProcessingLayer *audioLayer)
+        : analysisEngine(engine), tabController(nullptr), audioStatusBar(nullptr)
     {
         LOG_INFO("Initializing DiagnosticVisualizationLayer");
+
+        audioStatusBar = std::make_unique<UI::AudioStatusBar>(audioLayer);
 
         auto fretBuzzPanel = std::make_unique<UI::FretBuzzPanel>(analysisEngine);
         auto intonationPanel = std::make_unique<UI::IntonationPanel>(analysisEngine);
@@ -54,6 +59,11 @@ namespace GuitarDiagnostics::App
 
     void DiagnosticVisualizationLayer::OnRender()
     {
+        if (audioStatusBar)
+        {
+            audioStatusBar->OnImGuiRender();
+        }
+
         if (tabController)
         {
             tabController->Render();

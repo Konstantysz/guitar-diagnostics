@@ -1,14 +1,10 @@
 #pragma once
 
 #include "UI/Panel.h"
+#include "Analysis/AnalysisEngine.h"
 
 #include <string>
 #include <vector>
-
-namespace GuitarDiagnostics::Util
-{
-    template<typename T> class LockFreeRingBuffer;
-}
 
 namespace GuitarDiagnostics::UI
 {

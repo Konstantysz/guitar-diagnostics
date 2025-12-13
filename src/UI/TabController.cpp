@@ -53,8 +53,12 @@ namespace GuitarDiagnostics::UI
 
     void TabController::Render()
     {
-        ImGui::SetNextWindowPos(ImVec2(0, 0));
-        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+        // Offset Y position by 50px for AudioStatusBar header
+        constexpr float kHeaderHeight = 50.0f;
+        ImVec2 displaySize = ImGui::GetIO().DisplaySize;
+
+        ImGui::SetNextWindowPos(ImVec2(0, kHeaderHeight));
+        ImGui::SetNextWindowSize(ImVec2(displaySize.x, displaySize.y - kHeaderHeight));
 
         ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove
                                        | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoBringToFrontOnFocus;

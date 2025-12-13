@@ -1,13 +1,9 @@
 #pragma once
 
 #include "UI/Panel.h"
+#include "Analysis/AnalysisEngine.h"
 
 #include <string>
-
-namespace GuitarDiagnostics::Analysis
-{
-    class AnalysisEngine;
-}
 
 namespace GuitarDiagnostics::UI
 {

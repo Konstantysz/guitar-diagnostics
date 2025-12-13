@@ -1,24 +1,13 @@
 #pragma once
 
+#include "Util/LockFreeRingBuffer.h"
+#include "Analysis/AnalysisEngine.h"
+#include "AudioProcessingLayer.h"
+
 #include <Application.h>
 
 #include <cstdint>
 #include <memory>
-
-namespace GuitarDiagnostics::App
-{
-    class AudioProcessingLayer;
-}
-
-namespace GuitarDiagnostics::Analysis
-{
-    class AnalysisEngine;
-}
-
-namespace GuitarDiagnostics::Util
-{
-    template<typename T> class LockFreeRingBuffer;
-}
 
 namespace GuitarDiagnostics::App
 {

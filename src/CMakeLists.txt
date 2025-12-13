@@ -17,9 +17,11 @@ add_library(GuitarDiagnosticsCore STATIC
     Analysis/Fretbuzz/FretBuzzDetector.cpp
     Analysis/Intonation/IntonationAnalyzer.cpp
     Analysis/StringHealth/StringHealthAnalyzer.cpp
+    Analysis/StringDetector.cpp
 
     # UI
     UI/TabController.cpp
+    UI/AudioStatusBar.cpp
     UI/Panels/FretBuzzPanel.cpp
     UI/Panels/IntonationPanel.cpp
     UI/Panels/StringHealthPanel.cpp

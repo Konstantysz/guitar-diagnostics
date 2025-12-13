@@ -52,7 +52,7 @@ namespace GuitarDiagnostics::App
 
         InitializeImGui();
 
-        PushLayer<DiagnosticVisualizationLayer>(analysisEngine.get(), ringBuffer.get());
+        PushLayer<DiagnosticVisualizationLayer>(analysisEngine.get(), ringBuffer.get(), audioLayer.get());
 
         LOG_INFO("Application initialized successfully");
     }
