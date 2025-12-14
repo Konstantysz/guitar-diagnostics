@@ -9,7 +9,7 @@ namespace GuitarDiagnostics::Analysis
 
     IntonationResult::IntonationResult()
         : AnalysisResult(), state(IntonationState::Idle), openStringFrequency(0.0f), frettedStringFrequency(0.0f),
-          expectedFrettedFrequency(0.0f), centDeviation(0.0f), isInTune(false)
+          expectedFrettedFrequency(0.0f), centDeviation(0.0f), isInTune(false), stringInfo()
     {
     }
 
@@ -17,7 +17,7 @@ namespace GuitarDiagnostics::Analysis
         : config(0.0f, 0), pitchDetector(nullptr), currentState(IntonationState::Idle),
           pitchAccumulator(g_kPitchAccumulatorSize, 0.0f), pitchCount(0),
           stateStartTime(std::chrono::steady_clock::now()), openStringFreq(0.0f), frettedStringFreq(0.0f),
-          centDeviation(0.0f), isInTune(false), latestResult(std::make_shared<IntonationResult>())
+          centDeviation(0.0f), isInTune(false), openStringInfo(), latestResult(std::make_shared<IntonationResult>())
     {
     }
 
@@ -140,6 +140,7 @@ namespace GuitarDiagnostics::Analysis
     {
         currentState = IntonationState::OpenString;
         openStringFreq = frequency;
+        openStringInfo = StringDetector::Classify(frequency);
         pitchCount = 0;
         stateStartTime = std::chrono::steady_clock::now();
     }
@@ -259,6 +260,7 @@ namespace GuitarDiagnostics::Analysis
         result->expectedFrettedFrequency = openStringFreq * 2.0f;
         result->centDeviation = centDeviation;
         result->isInTune = isInTune;
+        result->stringInfo = openStringInfo;
 
         std::lock_guard<std::mutex> lock(resultMutex);
         latestResult = std::move(result);

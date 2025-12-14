@@ -9,7 +9,7 @@ namespace GuitarDiagnostics::Analysis
 
     FretBuzzResult::FretBuzzResult()
         : AnalysisResult(), buzzScore(0.0f), onsetDetected(false), transientScore(0.0f), highFreqEnergyScore(0.0f),
-          inharmonicityScore(0.0f)
+          inharmonicityScore(0.0f), stringInfo()
     {
     }
 
@@ -17,7 +17,7 @@ namespace GuitarDiagnostics::Analysis
         : config(0.0f, 0), pitchDetector(nullptr), fftProcessor(nullptr), audioBuffer(),
           prevSpectrum(g_kFFTSize / 2, 0.0f), rmsHistory(10, 0.0f), prevRMS(0.0f), onsetActive(false),
           currentBuzzScore(0.0f), currentOnsetDetected(false), currentTransientScore(0.0f),
-          currentHighFreqEnergyScore(0.0f), currentInharmonicityScore(0.0f),
+          currentHighFreqEnergyScore(0.0f), currentInharmonicityScore(0.0f), currentStringInfo(),
           latestResult(std::make_shared<FretBuzzResult>())
     {
     }
@@ -225,6 +225,12 @@ namespace GuitarDiagnostics::Analysis
         }
 
         float fundamental = pitchResult->frequency;
+
+        if (pitchResult->confidence > 0.85f)
+        {
+            currentStringInfo = StringDetector::Classify(fundamental);
+        }
+
         auto harmonics = ExtractHarmonics(fundamental);
 
         return CalculateInharmonicityMetric(harmonics, fundamental);
@@ -303,6 +309,7 @@ namespace GuitarDiagnostics::Analysis
         result->transientScore = currentTransientScore;
         result->highFreqEnergyScore = currentHighFreqEnergyScore;
         result->inharmonicityScore = currentInharmonicityScore;
+        result->stringInfo = currentStringInfo;
 
         std::lock_guard<std::mutex> lock(resultMutex);
         latestResult = std::move(result);

@@ -140,6 +140,7 @@ namespace GuitarDiagnostics::Analysis
         float currentDecayRate;
         float currentSpectralCentroid;
         float currentInharmonicity;
+        StringInfo currentStringInfo;
 
         mutable std::mutex resultMutex;
         std::shared_ptr<StringHealthResult> latestResult;

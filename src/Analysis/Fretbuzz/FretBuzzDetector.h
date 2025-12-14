@@ -157,6 +157,7 @@ namespace GuitarDiagnostics::Analysis
         float currentTransientScore;
         float currentHighFreqEnergyScore;
         float currentInharmonicityScore;
+        StringInfo currentStringInfo;
 
         mutable std::mutex resultMutex;
         std::shared_ptr<FretBuzzResult> latestResult;

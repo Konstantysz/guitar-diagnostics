@@ -144,10 +144,11 @@ namespace GuitarDiagnostics::Analysis
         size_t pitchCount;                                    ///< Number of accumulated pitch samples.
         std::chrono::steady_clock::time_point stateStartTime; ///< Time when the current state started.
 
-        float openStringFreq;    ///< Measured open string frequency.
-        float frettedStringFreq; ///< Measured fretted string frequency.
-        float centDeviation;     ///< Calculated deviation in cents.
-        bool isInTune;           ///< Intonation check result.
+        float openStringFreq;      ///< Measured open string frequency.
+        float frettedStringFreq;   ///< Measured fretted string frequency.
+        float centDeviation;       ///< Calculated deviation in cents.
+        bool isInTune;             ///< Intonation check result.
+        StringInfo openStringInfo; ///< Detected string information from open string.
 
         mutable std::mutex resultMutex;                 ///< Mutex for thread-safe result access.
         std::shared_ptr<IntonationResult> latestResult; ///< The latest analysis result.

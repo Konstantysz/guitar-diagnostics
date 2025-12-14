@@ -10,10 +10,10 @@ namespace GuitarDiagnostics::Analysis
      */
     struct StringInfo
     {
-        int stringNumber;       ///< 1-6 (1=low E, 6=high e), -1 if unknown
-        std::string stringName; ///< "E", "A", "D", "G", "B", "e", or "Unknown"
-        float confidence;       ///< 0.0-1.0 (1.0 = exact match, 0.0 = no confidence)
-        float detuneAmount;     ///< Cents deviation from reference pitch (+ = sharp, - = flat)
+        int stringNumber = -1;              ///< 1-6 (1=low E, 6=high e), -1 if unknown
+        std::string stringName = "Unknown"; ///< "E", "A", "D", "G", "B", "e", or "Unknown"
+        float confidence = 0.0f;            ///< 0.0-1.0 (1.0 = exact match, 0.0 = no confidence)
+        float detuneAmount = 0.0f;          ///< Cents deviation from reference pitch (+ = sharp, - = flat)
     };
 
     namespace StringDetector

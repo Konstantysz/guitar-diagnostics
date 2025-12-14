@@ -9,14 +9,14 @@ namespace GuitarDiagnostics::Analysis
 
     StringHealthResult::StringHealthResult()
         : AnalysisResult(), healthScore(0.0f), decayRate(0.0f), spectralCentroid(0.0f), inharmonicity(0.0f),
-          fundamentalFrequency(0.0f)
+          fundamentalFrequency(0.0f), stringInfo()
     {
     }
 
     StringHealthAnalyzer::StringHealthAnalyzer()
         : config(0.0f, 0), pitchDetector(nullptr), fftProcessor(nullptr), harmonicEnergies(), timestamps(),
           currentFundamental(0.0f), analysisFrameCount(0), currentHealthScore(0.0f), currentDecayRate(0.0f),
-          currentSpectralCentroid(0.0f), currentInharmonicity(0.0f),
+          currentSpectralCentroid(0.0f), currentInharmonicity(0.0f), currentStringInfo(),
           latestResult(std::make_shared<StringHealthResult>())
     {
         harmonicEnergies.reserve(g_kDecayHistorySize);
@@ -55,6 +55,11 @@ namespace GuitarDiagnostics::Analysis
         {
             currentFundamental = pitchResult->frequency;
             TrackHarmonicEnergy(currentFundamental);
+
+            if (pitchResult->confidence > 0.85f && analysisFrameCount > 3)
+            {
+                currentStringInfo = StringDetector::Classify(currentFundamental);
+            }
         }
 
         currentDecayRate = AnalyzeDecay();
@@ -292,6 +297,7 @@ namespace GuitarDiagnostics::Analysis
         result->spectralCentroid = currentSpectralCentroid;
         result->inharmonicity = currentInharmonicity;
         result->fundamentalFrequency = currentFundamental;
+        result->stringInfo = currentStringInfo;
 
         std::lock_guard<std::mutex> lock(resultMutex);
         latestResult = std::move(result);
